@@ -3,14 +3,14 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.phonegap.ryanw.barcodedemo"
         version   = "2.0.0">
-    <name>SAC Logistica</name>
+    <name>Super Dos App</name>
 
     <description>
-        Sistema de Logistica
+        Control de Inventario
     </description>
 
-    <author href="http://www.soyoda.com" email="sistemas@soyodaecuador.com">
-      Desarrollo Soyoda
+    <author href="http://www.compuserviceteleco.com/" email="jdflores1602@gmail.com">
+      Compu Service and Teleco
     </author>
 
     <gap:plugin name="com.phonegap.plugins.barcodescanner"/>
