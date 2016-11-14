@@ -51,8 +51,12 @@
             });
 
             function IniciaApp(){
-                contentPage(server+'/SuperDos/ConsultaCodigo',function(RETORNO){
-                    RETORNO = RETORNO.replace("//||||","var HtmlDespacho = callback;  HtmlDespacho = HtmlDespacho.replace(\"//funcionApp\",\"function ActivaScan(){ScanBarcode();}\"); setTimeout(function(){	$('#contenedorDetalle').html('');	$('#contenedorDetalle').html(HtmlDespacho); console.log(HtmlDespacho); },100);"); 
+                contentPage(server+'/SuperDos/Login',function(RETORNO){
+                    RETORNO = RETORNO.replace("//||||","var HtmlPrincipal = callback;  HtmlPrincipal = HtmlPrincipal.replace(\"//funcionConsultaCodigo\", \"var HtmlConsultaCodigo = callback; HtmlConsultaCodigo = HtmlConsultaCodigo.replace(\"//funcionApp\",\"function ActivaScan(){ScanBarcode();} \");  setTimeout(function(){ $(\"#contenedorDetalle\").html(''); $(\"#contenedorDetalle\").html(HtmlConsultaCodigo); },100); \"); HtmlPrincipal = HtmlPrincipal.replace(\"<button type=\"button\" class=\"btn btn-info btn-flat\">Scan</button>\",\"<button type=\"button\" class=\"btn btn-info btn-flat\" onclick=\"ActivaScan()\">Scan</button>\"); setTimeout(function(){ $(\"#contenedor\").html(''); $(\"#contenedor\").html(HtmlPrincipal); },100);"); 
+					
+					$("#content_master").html(RETORNO);
+                    setTimeout("$('#content_master').show(200);", 100); 
+                    setTimeout("$('#loader_sys').hide();", 100);
 					});
 			}
             function ScanBarcode()
@@ -60,8 +64,8 @@
                 console.log('scanning');
                 var scanner = cordova.require("cordova/plugin/BarcodeScanner");
                 scanner.scan( function (result) { 
-                    $("#txtFactura").val("");
-                    $("#txtFactura").val(result.text);
+                    $("#txtCodigo").val("");
+                    $("#txtCodigo").val(result.text);
                 }, function (error) { 
                     console.log("Scanning failed: ", error); 
                 } );
