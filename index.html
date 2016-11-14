@@ -54,7 +54,7 @@
                 contentPage(server+'/SuperDos/ConsultaCodigo',function(RETORNO){
                     RETORNO = RETORNO.replace("//||||","var HtmlDespacho = callback;  HtmlDespacho = HtmlDespacho.replace(\"//funcionApp\",\"function ActivaScan(){ScanBarcode();}\"); setTimeout(function(){	$('#contenedorDetalle').html('');	$('#contenedorDetalle').html(HtmlDespacho); console.log(HtmlDespacho); },100);"); 
 					});
-					
+			}
             function ScanBarcode()
             {
                 console.log('scanning');
