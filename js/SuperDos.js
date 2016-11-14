@@ -1,5 +1,5 @@
 
-var server = "http://200.124.241.109:82/SAC_Intranet";
+var server = "http://200.124.241.109:81";
 var controller = "";
 var fieldHide = "";
 
