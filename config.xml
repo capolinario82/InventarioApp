@@ -13,7 +13,8 @@
       Compu Service and Teleco
     </author>
 
-	<gap:plugin name="com.phonegap.plugins.barcodescanner"/>
+	<gap:plugin name="https://github.com/phonegap/phonegap-plugin-barcodescanner.git"/>
+	<!-- <gap:plugin name="com.phonegap.plugins.barcodescanner"/> -->
 	
     <!--<feature name="http://api.phonegap.com/1.0/device" />
     <feature name="debug-server" required="true">
