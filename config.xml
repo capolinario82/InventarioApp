@@ -13,20 +13,9 @@
       Compu Service and Teleco
     </author>
 
-	<!--<gap:plugin name="https://github.com/phonegap/phonegap-plugin-barcodescanner.git"/>
-	<gap:plugin name="com.phonegap.plugins.barcodescanner"/> -->
+	<!--<gap:plugin name="https://github.com/phonegap/phonegap-plugin-barcodescanner.git"/>-->
+	<gap:plugin name="phonegap.plugins.barcodescanner"/> 
 	
-    <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
-    xmlns:rim="http://www.blackberry.com/ns/widgets"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    id="phonegap-plugin-barcodescanner-tests"
-    version="3.1.0">
-	    <name>PhoneGap BarcodeScanner Plugin Tests</name>
-	    <license>Apache 2.0</license>
-
-	    <js-module src="tests.js" name="tests">
-	    </js-module>
-    </plugin>
     <!--<feature name="http://api.phonegap.com/1.0/device" />
     <feature name="debug-server" required="true">
        <param name="domain" value="http://debug.phonegap.com"/>
