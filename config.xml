@@ -13,7 +13,6 @@
       Compu Service and Teleco
     </author>
 
-    <gap:plugin name="phonegap-plugin-barcodescanner"/>
 	<!--<gap:plugin name="com.phonegap.plugins.barcodescanner"/>-->
 	
     <!--<feature name="http://api.phonegap.com/1.0/device" />
@@ -21,13 +20,16 @@
        <param name="domain" value="http://debug.phonegap.com"/>
        <param name="key" value="willoughby"/>
     </feature>-->
+	
+	<feature name="BarcodeScanner">
+		<param name="android-package" value="phonegap-plugin-barcodescanner" />
+	</feature>
 
     <preference name="phonegap-version" value="3.6.3" />
     <preference name="orientation"      value="default" />
     <preference name="target-device"    value="universal" />
     <preference name="fullscreen"       value="false" />
     <preference name="webviewbounce"    value="false" />
-	<preference name="android-build-tool" value="gradle" />
 
     <icon src="img/Logo.png" />
     <icon src="res/icon/android/Logo.png"   gap:platform="android"    gap:density="ldpi" />
