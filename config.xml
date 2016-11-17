@@ -26,12 +26,12 @@
 		<param name="android-package" value="phonegap-plugin-barcodescanner" />
 	</feature> -->
 
-    <preference name="phonegap-version" value="cli-6.3.0" />
-    <preference name="android-build-tool" value="gradle" /> 
+    <preference name="phonegap-version" value="cli-6.3.0" />    
     <preference name="orientation"      value="default" />
     <preference name="target-device"    value="universal" />
     <preference name="fullscreen"       value="false" />
     <preference name="webviewbounce"    value="false" />
+    <preference name="android-build-tool" value="gradle" /> 
 
     <icon src="img/Logo.png" />
     <icon src="res/icon/android/Logo.png"   gap:platform="android"    gap:density="ldpi" />
