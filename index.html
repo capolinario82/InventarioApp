@@ -52,19 +52,54 @@
 
             function IniciaApp(){
                 contentPage(server+'/SuperDos/Login',function(RETORNO){
-                    RETORNO = RETORNO.replace("//||||","var HtmlPrincipal = callback;  HtmlPrincipal = HtmlPrincipal.replace(\"//funcionConsultaCodigo\", \"var HtmlConsultaCodigo = callback; HtmlConsultaCodigo = HtmlConsultaCodigo.replace('function funcionApp(){}','function ActivaScan(){ScanBarcode();} '); HtmlConsultaCodigo.replace(\\\"<button type='button' class='btn btn-info btn-flat'>Scan</button>\\\",\\\"<button type='button' class='btn btn-info btn-flat' onclick='ActivaScan()'>Scan</button>\\\"); \"); HtmlPrincipal = HtmlPrincipal.replace(\"//funcionActualizaInventario\",\"var HtmlActualizaInventario = callback; HtmlActualizaInventario = HtmlActualizaInventario.replace('function funcionApp(){}','function ActivaScan(){ScanBarcode();} '); HtmlActualizaInventario.replace(\\\"<button type='button' class='btn btn-info btn-flat'>Scan</button>\\\",\\\"<button type='button' class='btn btn-info btn-flat' onclick='ActivaScan()'>Scan</button>\\\"); \"); setTimeout(function(){ $('#contenedor').html(''); $('#contenedor').html(HtmlPrincipal); },100); "); 
+                    RETORNO = RETORNO.replace("//||||","var HtmlPrincipal = callback;  HtmlPrincipal = HtmlPrincipal.replace(\"//funcionConsultaCodigo\", \"var HtmlConsultaCodigo = callback; HtmlConsultaCodigo = HtmlConsultaCodigo.replace('function funcionApp(){}','function ActivaScan(){ScanBarcode();} '); HtmlConsultaCodigo.replace(\\\"<button type='button' class='btn btn-info btn-flat'>Scan</button>\\\",\\\"<button type='button' class='btn btn-info btn-flat' onclick='ActivaScan()'>Scan</button>\\\"); \"); HtmlPrincipal = HtmlPrincipal.replace(\"//funcionActualizaInventario\",\"var HtmlActualizaInventario = callback; HtmlActualizaInventario = HtmlActualizaInventario.replace('function funcionApp(){}','function ActivaScan(){ScanBarcode2();} '); HtmlActualizaInventario.replace(\\\"<button type='button' class='btn btn-info btn-flat'>Scan</button>\\\",\\\"<button type='button' class='btn btn-info btn-flat' onclick='ActivaScan()'>Scan</button>\\\"); \"); setTimeout(function(){ $('#contenedor').html(''); $('#contenedor').html(HtmlPrincipal); },100); "); 
 					$("#content_master").html(RETORNO);
                     setTimeout("$('#content_master').show(200);", 100); 
                     setTimeout("$('#loader_sys').hide();", 100);
 					});
 			}
-            function ScanBarcode()
+		
+	    function ScanBarcode()
             {
                 console.log('scanning');
                 var scanner = cordova.require("cordova/plugin/BarcodeScanner");
                 scanner.scan( function (result) { 
-                    $("#txtCodigo").val("");
+		    $("#txtCodigo").val("");
+                    $("#txtCodigo").val(result.text);	
+                }, function (error) { 
+                    console.log("Scanning failed: ", error); 
+                } );
+            }
+		
+            function ScanBarcode2()
+            {
+                console.log('scanning');
+                var scanner = cordova.require("cordova/plugin/BarcodeScanner");
+                scanner.scan( function (result) { 
+		    $("#txtCodigo").val("");
                     $("#txtCodigo").val(result.text);
+		    
+		    var dataPost = {
+			    CODIGO: result.text,
+			    USUARIO: usuario
+		    };
+			
+		    AjaxSAC('SuperDos/ObtenerProducto', dataPost, true, function (callback) {
+			if (callback == '1') {
+			    alert("No existe producto");
+			    return;
+			}
+
+			if (callback == '2') {
+			    alert("Ocurrió un problema al consultar el producto");
+			    return;
+			}
+			    
+			$("#txtProducto").val(callback.split('|')[1]);
+			$("#txtCantidad").val('1');
+			$("#txtCantidad").prop('disabled', false);
+		    });
+			
                 }, function (error) { 
                     console.log("Scanning failed: ", error); 
                 } );
