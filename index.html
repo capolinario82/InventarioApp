@@ -123,7 +123,7 @@
                 var scanner = cordova.require("cordova/plugin/BarcodeScanner");
                 scanner.scan( function (result) { 
 		    if($("#txtCodigo").val() == ''){
-			    ConsultarCodigo(result.text);
+			    ConsultarCodigoB(result.text);
 		    }else{
 			    var dataPost = {
 				CODIGO: $("#txtCodigo").val(),
@@ -142,7 +142,7 @@
 				    alert(callback);
 			    });
 			    
-			    setTimeout(function () { ConsultarCodigo(result.text) }, 100);
+			    setTimeout(function () { ConsultarCodigoB(result.text) }, 100);
 		    }
 			
                 }, function (error) { 
@@ -150,7 +150,7 @@
                 } );
             }
 		
-		function ConsultarCodigo(codBarras){
+		function ConsultarCodigoB(codBarras){
 		    $("#txtCodigo").val("");
 		    $("#txtCodigo").val(codBarras);
 
