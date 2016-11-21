@@ -59,6 +59,25 @@
 					});
 			}
 		
+	    function ActualizarItem(){
+		    var dataPost = {
+			CODIGO: $("#txtCodigo").val(),
+			CANTIDAD: $("#txtCantidad").val(), 
+			BODEGA: $("#cmbBodega").val(),
+			USUARIO: usuario
+		    };
+
+		    AjaxSAC('SuperDos/ActualizarProducto', dataPost, true, function (callback) {
+			if (callback == "OK") {
+			    alert("Producto registrado para el inventario");
+			    $("#txtCodigo").val('');
+			    $("#txtProducto").val('');
+			    $("#txtCantidad").val('1');
+			} else
+			    alert(callback);
+		    });
+	    }
+		
 	    function ScanBarcode()
             {
                 console.log('scanning');
@@ -66,6 +85,33 @@
                 scanner.scan( function (result) { 
 		    $("#txtCodigo").val("");
                     $("#txtCodigo").val(result.text);	
+		
+		    var dataPost = {
+			    CODIGO: result.text,
+			    USUARIO: usuario
+		    };
+			
+		    AjaxSAC('SuperDos/ObtenerProducto', dataPost, true, function (callback) {
+			    if (callback == '1') {
+				alert("No existe producto");
+				$("#txtProducto").val('');
+				$("#txtStock").val('');
+				$("#txtVendido").val('');
+				return;
+			    }
+
+			    if (callback == '2') {
+				alert("Ocurrió un problema al consultar el producto");
+				$("#txtProducto").val('');
+				$("#txtStock").val('');
+				$("#txtVendido").val('');
+				return;
+			    }
+
+			    $("#txtProducto").val(callback.split('|')[1]);
+			    $("#txtStock").val(callback.split('|')[2]);
+			    $("#txtVendido").val(callback.split('|')[3]);
+			});
                 }, function (error) { 
                     console.log("Scanning failed: ", error); 
                 } );
@@ -76,17 +122,48 @@
                 console.log('scanning');
                 var scanner = cordova.require("cordova/plugin/BarcodeScanner");
                 scanner.scan( function (result) { 
+		    if($("#txtCodigo").val() == ''){
+			    ConsultarCodigo(result.text);
+		    }else{
+			    var dataPost = {
+				CODIGO: $("#txtCodigo").val(),
+				CANTIDAD: $("#txtCantidad").val(), 
+				BODEGA: $("#cmbBodega").val(),
+				USUARIO: usuario
+			    };
+
+			    AjaxSAC('SuperDos/ActualizarProducto', dataPost, true, function (callback) {
+				if (callback == "OK") {
+				    alert("Producto registrado para el inventario");
+				    $("#txtCodigo").val('');
+				    $("#txtProducto").val('');
+				    $("#txtCantidad").val('1');
+				} else
+				    alert(callback);
+			    });
+			    
+			    setTimeout(function () { ConsultarCodigo(result.text) }, 100);
+		    }
+			
+                }, function (error) { 
+                    console.log("Scanning failed: ", error); 
+                } );
+            }
+		
+		function ConsultarCodigo(codBarras){
 		    $("#txtCodigo").val("");
-                    $("#txtCodigo").val(result.text);
-		    
+		    $("#txtCodigo").val(codBarras);
+
 		    var dataPost = {
-			    CODIGO: result.text,
+			    CODIGO: codBarras,
 			    USUARIO: usuario
 		    };
-			
+
 		    AjaxSAC('SuperDos/ObtenerProducto', dataPost, true, function (callback) {
 			if (callback == '1') {
 			    alert("No existe producto");
+			    $("#txtProducto").val('');
+			    $("#txtCantidad").val('1');
 			    return;
 			}
 
@@ -94,16 +171,12 @@
 			    alert("Ocurrió un problema al consultar el producto");
 			    return;
 			}
-			    
+
 			$("#txtProducto").val(callback.split('|')[1]);
 			$("#txtCantidad").val('1');
 			$("#txtCantidad").prop('disabled', false);
 		    });
-			
-                }, function (error) { 
-                    console.log("Scanning failed: ", error); 
-                } );
-            }
+		}
         </script>
     </body>
 </html>
