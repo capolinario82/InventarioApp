@@ -151,7 +151,7 @@
             }
 		
 		function ConsultarCodigoB(codBarras){
-		    //$("#txtCodigo").val("");
+		    $("#txtCodigo").val("");
 		    $("#txtCodigo").val(codBarras);
 
 		    var dataPost = {
@@ -162,6 +162,7 @@
 		    AjaxSAC('SuperDos/ObtenerProducto', dataPost, true, function (callback) {
 			if (callback == '1') {
 			    alert("No existe producto");
+			    $("#txtCodigo").val('');
 			    $("#txtProducto").val('');
 			    $("#txtCantidad").val('1');
 			    return;
@@ -172,6 +173,7 @@
 			    return;
 			}
 
+			$("#txtCodigo").val(callback.split('|')[0]);
 			$("#txtProducto").val(callback.split('|')[1]);
 			$("#txtCantidad").val('1');
 			$("#txtCantidad").prop('disabled', false);
