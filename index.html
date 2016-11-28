@@ -96,6 +96,7 @@
 				alert("No existe producto");
 				$("#txtProducto").val('');
 				$("#txtStock").val('');
+				$("#txtCosto").val('');
 				$("#txtVendido").val('');
 				return;
 			    }
@@ -104,13 +105,15 @@
 				alert("Ocurrió un problema al consultar el producto");
 				$("#txtProducto").val('');
 				$("#txtStock").val('');
+				$("#txtCosto").val('');
 				$("#txtVendido").val('');
 				return;
 			    }
 
 			    $("#txtProducto").val(callback.split('|')[1]);
 			    $("#txtStock").val(callback.split('|')[2]);
-			    $("#txtVendido").val(callback.split('|')[3]);
+			    $("#txtCosto").val(callback.split('|')[3]);
+			    $("#txtVendido").val(callback.split('|')[4]);
 			});
                 }, function (error) { 
                     console.log("Scanning failed: ", error); 
