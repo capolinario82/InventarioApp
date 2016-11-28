@@ -1,5 +1,5 @@
 
-var server = "http://192.168.0.98:81";
+var server = "http://192.168.10.114:81";
 var controller = "";
 var fieldHide = "";
 
